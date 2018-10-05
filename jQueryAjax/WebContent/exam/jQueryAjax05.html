@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<button id = "testButton">클릭하시오</button>
+	<br>
+	<div id = "display"></div>
+	
+
+	<script src = "http://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			//jQueryAjax05_jsonData.txt - 한글 UTF-8 로 저장한다
+			$('#testButton').click(function(){
+				$.getJSON('jQueryAJax05_jsonData.txt', function(data){
+					//alert(data);
+					var table = '<table border = "1"></table>';
+					var tr = '<tr></tr>';
+					var td = '<td></td>';
+					$('#display').html(table);
+					$('#display table').append('<tr><th>이름</th><th>주소</th></tr>');
+					
+					
+					$.each(data, function(index,value){
+						//alert(index+", "+value);
+						//alert(index+","+value.name+" : "+value.addr);
+						$('#display table').append(tr);
+						
+						$.each(value, function(key, val){
+							$('#display tr:eq('+index+')').append(td);
+							if(key == 'name') $('tr:eq('+index+') td:eq(0)').html(val);
+							if(key == 'addr') $('tr:eq('+index+') td:eq(1)').html(val);
+						});
+					});
+				});
+			});
+		});
+	</script>
+</body>
+</html>
+
+
+

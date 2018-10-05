@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form>
+		<label>이름을 입력하시오</label>
+		<input type = "text" name = "username" class = "user" />
+		<input type = "button" id = "submit" value = "입력" />
+	</form>
+	<br><br>
+	<div id = "message"></div>
+	
+	<script src = "http://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('form:eq(0) input#submit').click(function(){
+				/* $.post( 'jQueryAjax02_data.jsp',
+					{'username' : $('input[name=username]').val()},
+					function(data){
+						$('#message').html(data);
+					},
+					'text'
+				); */
+				
+				$.get(encodeURI('jQueryAjax02_data.jsp?username='+$('input[name=username]').val(), 'UTF-8'),
+					function(data){
+						$('#message').html(decodeURI(data));
+					},
+					'text'
+				);
+			});
+		});
+	</script>
+</body>
+</html>

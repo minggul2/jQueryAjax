@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form>
+		<label>이름을 입력하시오</label>
+		<input type = "text" name = "username" class = "user" />
+		<input type = "button" id = "submit" value = "입력" />
+	</form>
+	<br><br>
+	<div id = "message"></div>
+	
+	<script src = "http://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('form:eq(0) input#submit').click(function(){
+				if($('input[name=username]').val() == ''){
+				alert("비어있음");
+				}
+				$.ajax({
+					type : 'POST',
+					url : 'jQueryAjax02_data.jsp',
+					//data : 'username='+$('input[name=username]').val(),
+					//data : 'username='+$('.user').val(),
+					//data : 'username='+$('form input:eq(0)').val(),
+					//data : 'username='+$('form input:eq(1)').prev().val(),
+					//data : 'username='+$('form input:eq(0)').next().val(),	//입력이라뜸
+					data : {'username' : $('input[name=username]').val()},
+					dataType : 'text',
+					success : function(data){
+						$('#message').html(data);
+					},
+					error : function(){
+						alert("에러");
+					}
+				});
+			});
+		});
+	</script>
+	
+</body>
+</html>
+
+<!-- 
+	속성			설명
+	type		http 전송 method를 지정한다
+				GET, POST
+	
+	url			호출 URL
+				GET 방식일경우 URL  뒤에 파라미터를 붙여서 사용해도 된다.
+	
+				
+	data		서버로 보낼 데이터
+	
+	dataType	Ajax를 통해 호출한 페이지의 Return 형식이다.
+				형식에 따라 xml, json, html, text 등을 사용하면 된다.
+	
+	error		에러났을때의 처리 부분이다.
+	
+	success		성공했을때의 처리 부분이다.
+				보통 해당 부분에서 데이터 핸들링을 하면 된다.
+-->
+			
